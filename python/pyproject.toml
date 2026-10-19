@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fabric-csharp"
+version = "0.1.0"
+description = "Write and execute C# directly in Microsoft Fabric / Jupyter notebook cells via a bundled Roslyn + .NET runtime (no external .NET install required)."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "pythonnet>=3.0.3",
+    "ipython>=8.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["fabric_csharp*"]
+
+[tool.setuptools.package-data]
+fabric_csharp = ["runtime/**/*", "runtime/**/.version"]
