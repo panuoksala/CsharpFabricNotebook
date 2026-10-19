@@ -100,6 +100,8 @@ namespace. Start local Jupyter sessions outside the repository root as well.
   the runtime but still compile their code. No Fabric startup benchmarks are provided.
 - `%csharp_reset` clears the persisted Roslyn script state if you want a clean slate without
   restarting the kernel. It does not unload .NET or undo side effects.
+- `%%csharp -i a,b -o c` passes basic Python values in as `dynamic Vars.a` and copies C#
+  variables back to Python (see the root README for details and type mapping).
 - Execution is local to the notebook's Python process, not distributed across Spark executors.
 - C# errors are printed to standard error without raising a Python exception; do not rely
   on them to stop a notebook or pipeline.

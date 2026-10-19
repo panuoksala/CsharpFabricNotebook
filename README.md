@@ -43,6 +43,41 @@ x * 2
 This prints `80`. Leave off the final semicolon to display an expression's value.
 Results are converted to text, not rendered as rich notebook tables.
 
+### Passing variables between Python and C#
+
+Feed basic Python values into C# with `-i`. They arrive as `dynamic Vars.<name>`:
+
+```text
+name = "Fabric"
+numbers = [1, 2, 3]
+```
+
+```text
+%%csharp -i name,numbers
+string who = Vars.name;
+Console.WriteLine($"Hello {who}, count = {Vars.numbers.Count}");
+```
+
+Copy C# values back to Python with `-o`. It reads a C# script variable, or a `Vars`
+entry if there is no variable with that name:
+
+```text
+%%csharp -o total
+int total = 0;
+foreach (var n in Vars.numbers) total += (int)n;
+```
+
+```text
+print(total)  # 6
+```
+
+Supported types are `None`, `bool`, `int`, `float`, `str`, and `list`/`dict` of those
+(NumPy/pandas values with `.tolist()` also work). Integers arrive in C# as `long`,
+floats as `double`, lists as `List<object>` and dicts as `dynamic` objects, so cast
+when you need a specific type. DataFrames and `spark` are not passed; convert to
+lists/dicts first (for example `df.head(100).to_dict("records")`).
+Values are copied as JSON at call time, so later changes on either side are not shared.
+
 To clear the saved C# script state, run a Python cell containing:
 
 ```text
@@ -152,8 +187,8 @@ repository root for the same reason.
   loading. Validate in a disposable Fabric workspace first.
 - The first C# cell initializes .NET and Roslyn. Later cells reuse the runtime but
   still compile their code. No Fabric startup benchmarks are provided.
-- C# does not automatically receive Python variables, DataFrames, or the notebook's
-  `spark` object.
+- Python variables are passed only explicitly with `-i` and only as basic JSON-like
+  values. DataFrames and the notebook's `spark` object are not exposed to C#.
 - There is no NuGet restore support for `#r "nuget:..."`. Additional libraries need
   their assemblies, dependencies, and references arranged separately.
 - The magic prints C# errors to standard error without raising a Python exception.
