@@ -91,6 +91,10 @@ namespace. Start local Jupyter sessions outside the repository root as well.
    Console.WriteLine(string.Join(",", nums));
    ```
 
+> **Fabric note:** Fabric's notebook UI intercepts `%%csharp` as its own retired .NET Spark
+> language and fails with `Invalid kind: sparkdotnet`. In Fabric use the alias `%%cs` instead
+> (same syntax and options).
+
 ### Known constraints / things to validate in your tenant before relying on this
 
 - Fabric Spark pools are Linux x64 nodes; the bundled runtime targets `linux-x64` specifically.

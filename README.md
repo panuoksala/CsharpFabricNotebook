@@ -17,6 +17,12 @@ notebook cells set to **PySpark (Python)** and load the extension:
 %load_ext fabric_csharp
 ```
 
+> **Fabric:** the Fabric notebook UI intercepts `%%csharp` as its own retired
+> ".NET for Apache Spark" language and fails with
+> `Invalid kind: sparkdotnet` (HTTP 400). In Fabric use the alias `%%cs`, which
+> has identical syntax and options. `%%csharp` works in plain Jupyter/IPython.
+> The examples below use `%%csharp`; substitute `%%cs` in Fabric.
+
 Then run a separate cell:
 
 ```text
@@ -128,7 +134,13 @@ against the current Fabric custom-library limits.
    uploaded separately.
 4. Publish the environment and attach it to your PySpark notebook.
 5. Start a new notebook session, then run `%load_ext fabric_csharp` before using
-   `%%csharp`.
+   `%%cs` (the Fabric-safe alias of `%%csharp`).
+
+If you upgrade the wheel, remove the older wheel from the environment, publish,
+and restart the notebook session. If you rebuild, run `build.ps1` first (use
+`powershell -ExecutionPolicy Bypass -File .\build.ps1` if scripts are blocked) so
+the bundled `ScriptHost.dll` matches the source; a stale DLL causes
+`ImportError: cannot import name 'Globals' from 'ScriptHost'`.
 
 The environment manages package deployment; no notebook installation cell is
 needed. Installation timing depends on the environment's publishing mode. See
@@ -159,7 +171,7 @@ IPython magic -> Python engine wrapper -> pythonnet
 - `python\fabric_csharp\bootstrap.py` loads the bundled CoreCLR runtime and
   `ScriptHost.dll` into the Python process on first use.
 - `python\fabric_csharp\engine.py` calls the .NET engine and retains `ScriptState`.
-- `python\fabric_csharp\magic.py` registers `%%csharp` and `%csharp_reset`.
+- `python\fabric_csharp\magic.py` registers `%%csharp`, its alias `%%cs`, and `%csharp_reset`.
 - `build.ps1` combines framework-dependent application files with self-contained
   runtime files, arranging them in the layout expected by the .NET host.
 

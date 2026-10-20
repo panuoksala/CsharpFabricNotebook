@@ -90,6 +90,12 @@ class CSharpMagics(Magics):
         if result.return_value_text is not None:
             print(result.return_value_text)
 
+    @cell_magic
+    def cs(self, line: str, cell: str) -> None:
+        """Alias of %%csharp. Fabric's notebook UI intercepts %%csharp as its own
+        (retired) .NET Spark language and fails with "Invalid kind: sparkdotnet"."""
+        self.csharp(line, cell)
+
     @line_magic
     def csharp_reset(self, line: str) -> None:
         """Reset the persistent C# script state (clears variables/usings)."""
