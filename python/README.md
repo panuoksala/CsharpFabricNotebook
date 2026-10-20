@@ -21,7 +21,7 @@ Variables, `using`s, and declared types persist across cells for the life of the
 
 ## How it works
 
-- **ScriptHost/** — a tiny .NET 8 class library (`CSharpEngine.Execute`) that wraps
+- **ScriptHost/** — a tiny .NET 10 class library (`CSharpEngine.Execute`) that wraps
   `Microsoft.CodeAnalysis.CSharp.Scripting` (Roslyn), compiling/running each cell's code against a
   persisted `ScriptState`, capturing `Console` output, and reporting the last expression's value or
   compile diagnostics back to Python.

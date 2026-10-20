@@ -1,7 +1,7 @@
 # CsharpFabricNotebook
 
 Run C# directly in Microsoft Fabric notebook cells using a custom IPython
-extension, pythonnet, and Roslyn scripting. The Python wheel bundles a .NET 8
+extension, pythonnet, and Roslyn scripting. The Python wheel bundles a .NET 10
 runtime, so notebook users do not need a separate .NET SDK or runtime installation.
 
 **Experimental:** this is not an official Microsoft Fabric language or kernel.
@@ -98,7 +98,7 @@ Restarting the notebook's Python process also clears the C# state.
 Build prerequisites:
 
 - PowerShell and Git.
-- A .NET SDK capable of targeting .NET 8.
+- A .NET SDK capable of targeting .NET 10.
 - Python 3.9 or later, with pip.
 - Access to NuGet and Python package sources for build dependencies.
 
@@ -156,7 +156,7 @@ Notebook cell: %%cs
 IPython magic -> Python engine wrapper -> pythonnet
                                              |
                                              v
-                                   Bundled .NET 8 CoreCLR
+                                   Bundled .NET 10 CoreCLR
                                              |
                                              v
                                    ScriptHost -> Roslyn

@@ -15,4 +15,4 @@ from .engine import CSharpEngine, CSharpResult
 from .magic import load_ipython_extension
 
 __all__ = ["CSharpEngine", "CSharpResult", "load_ipython_extension"]
-__version__ = "0.1.2"
+__version__ = "0.1.3"

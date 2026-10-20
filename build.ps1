@@ -26,8 +26,8 @@ $pkgRuntimeRoot = Join-Path $root "python\fabric_csharp\runtime"
 foreach ($rid in $RuntimeIdentifiers) {
     Write-Host "==> Publishing ScriptHost for $rid ..." -ForegroundColor Cyan
 
-    $fxDir = Join-Path $root "ScriptHost\bin\$Configuration\net8.0\$rid\fxpublish"
-    $scDir = Join-Path $root "ScriptHost\bin\$Configuration\net8.0\$rid\publish"
+    $fxDir = Join-Path $root "ScriptHost\bin\$Configuration\net10.0\$rid\fxpublish"
+    $scDir = Join-Path $root "ScriptHost\bin\$Configuration\net10.0\$rid\publish"
 
     # Framework-dependent publish: gives us the app's own files (ScriptHost.dll,
     # its Roslyn dependencies, deps.json) plus a runtimeconfig.json that declares

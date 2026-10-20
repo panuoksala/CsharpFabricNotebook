@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fabric-csharp"
-version = "0.1.2"
+version = "0.1.3"
 description = "Write and execute C# directly in Microsoft Fabric / Jupyter notebook cells via a bundled Roslyn + .NET runtime (no external .NET install required)."
 readme = "README.md"
 requires-python = ">=3.9"
