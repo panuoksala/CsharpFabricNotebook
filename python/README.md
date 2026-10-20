@@ -5,7 +5,7 @@ with no separate .NET install required on the cluster/runtime — a self-contain
 Roslyn scripting engine is bundled inside the Python wheel itself.
 
 ```text
-%%csharp
+%%cs
 int x = 40;
 Console.WriteLine("hello from C#");
 x + 2
@@ -30,7 +30,7 @@ Variables, `using`s, and declared types persist across cells for the life of the
     under `runtime/<rid>/` (no system .NET install touched or required).
   - `engine.py` is a thin wrapper that calls into `ScriptHost.CSharpEngine` and keeps the
     `ScriptState` alive between calls.
-  - `magic.py` registers the `%%csharp` IPython cell magic (and `%csharp_reset` to clear state).
+  - `magic.py` registers the `%%cs` (alias `%%csharp`) IPython cell magic (and `%csharp_reset` to clear state).
 - **build.ps1** — publishes `ScriptHost` self-contained per runtime identifier (RID) and stages the
   runtime assets into `python/fabric_csharp/runtime/<rid>/` in the exact layout CoreCLR's hostfxr
   expects (`app/` for the managed app, `dotnetroot/shared/Microsoft.NETCore.App/<version>/` +
@@ -85,7 +85,7 @@ namespace. Start local Jupyter sessions outside the repository root as well.
    ```
 4. Then just write C#:
    ```
-   %%csharp
+   %%cs
    using System.Linq;
    var nums = Enumerable.Range(1, 5).Select(n => n * n);
    Console.WriteLine(string.Join(",", nums));
@@ -100,11 +100,11 @@ namespace. Start local Jupyter sessions outside the repository root as well.
 - Fabric Spark pools are Linux x64 nodes; the bundled runtime targets `linux-x64` specifically.
 - Executing bundled native binaries (CoreCLR) must not be blocked by tenant security policy —
   verify in a disposable workspace first.
-- CoreCLR initializes on the first `%%csharp` cell in the Python process. Later cells reuse
+- CoreCLR initializes on the first `%%cs` cell in the Python process. Later cells reuse
   the runtime but still compile their code. No Fabric startup benchmarks are provided.
 - `%csharp_reset` clears the persisted Roslyn script state if you want a clean slate without
   restarting the kernel. It does not unload .NET or undo side effects.
-- `%%csharp -i a,b -o c` passes basic Python values in as `dynamic Vars.a` and copies C#
+- `%%cs -i a,b -o c` passes basic Python values in as `dynamic Vars.a` and copies C#
   variables back to Python (see the root README for details and type mapping).
 - Execution is local to the notebook's Python process, not distributed across Spark executors.
 - C# errors are printed to standard error without raising a Python exception; do not rely

@@ -21,12 +21,12 @@ notebook cells set to **PySpark (Python)** and load the extension:
 > ".NET for Apache Spark" language and fails with
 > `Invalid kind: sparkdotnet` (HTTP 400). In Fabric use the alias `%%cs`, which
 > has identical syntax and options. `%%csharp` works in plain Jupyter/IPython.
-> The examples below use `%%csharp`; substitute `%%cs` in Fabric.
+> The examples below use `%%cs`.
 
 Then run a separate cell:
 
 ```text
-%%csharp
+%%cs
 int x = 40;
 Console.WriteLine("hello from C#");
 x + 2
@@ -42,7 +42,7 @@ hello from C#
 Variables, namespace imports, and declared types persist between C# cells:
 
 ```text
-%%csharp
+%%cs
 x * 2
 ```
 
@@ -59,7 +59,7 @@ numbers = [1, 2, 3]
 ```
 
 ```text
-%%csharp -i name,numbers
+%%cs -i name,numbers
 string who = Vars.name;
 Console.WriteLine($"Hello {who}, count = {Vars.numbers.Count}");
 ```
@@ -68,7 +68,7 @@ Copy C# values back to Python with `-o`. It reads a C# script variable, or a `Va
 entry if there is no variable with that name:
 
 ```text
-%%csharp -o total
+%%cs -o total
 int total = 0;
 foreach (var n in Vars.numbers) total += (int)n;
 ```
@@ -150,7 +150,7 @@ for the current platform guidance.
 ## How it works
 
 ```text
-Notebook cell: %%csharp
+Notebook cell: %%cs
         |
         v
 IPython magic -> Python engine wrapper -> pythonnet
